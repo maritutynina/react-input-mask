@@ -166,14 +166,14 @@ describe("react-input-mask", () => {
 
   it("should format value on mount", async () => {
     const { input } = createInput(
-      <Input mask="+7 (999) 999 99 99" defaultValue="74953156454" />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" defaultValue="74953156454" />
     );
     expect(input.value).to.equal("+7 (495) 315 64 54");
   });
 
   it("should format value with invalid characters on mount", async () => {
     const { input } = createInput(
-      <Input mask="+7 (9a9) 999 99 99" defaultValue="749531b6454" />
+      <Input name="masked-input" mask="+7 (9a9) 999 99 99" defaultValue="749531b6454" />
     );
     expect(input.value).to.equal("+7 (4b6) 454 __ __");
   });
@@ -183,7 +183,7 @@ describe("react-input-mask", () => {
     const digit = /[0-9]/;
     const mask = [letter, digit, digit, digit, letter, letter];
     const { input } = createInput(
-      <Input mask={mask} defaultValue="А 784 КТ 77" />
+      <Input name="masked-input" mask={mask} defaultValue="А 784 КТ 77" />
     );
     expect(input.value).to.equal("А784КТ");
 
@@ -202,7 +202,7 @@ describe("react-input-mask", () => {
 
   it("should handle full length maskPlaceholder", async () => {
     const { input } = createInput(
-      <Input mask="99/99/9999" maskPlaceholder="dd/mm/yyyy" defaultValue="12" />
+      <Input name="masked-input" mask="99/99/9999" maskPlaceholder="dd/mm/yyyy" defaultValue="12" />
     );
     expect(input.value).to.equal("12/mm/yyyy");
 
@@ -224,7 +224,7 @@ describe("react-input-mask", () => {
   });
 
   it("should show placeholder on focus", async () => {
-    const { input } = createInput(<Input mask="+7 (*a9) 999 99 99" />);
+    const { input } = createInput(<Input name="masked-input" mask="+7 (*a9) 999 99 99" />);
     expect(input.value).to.equal("");
 
     await simulateFocus(input);
@@ -232,7 +232,7 @@ describe("react-input-mask", () => {
   });
 
   it("should clear input on blur", async () => {
-    const { input } = createInput(<Input mask="+7 (*a9) 999 99 99" />);
+    const { input } = createInput(<Input name="masked-input" mask="+7 (*a9) 999 99 99" />);
     await simulateFocus(input);
     expect(input.value).to.equal("+7 (___) ___ __ __");
 
@@ -249,7 +249,7 @@ describe("react-input-mask", () => {
 
   it("should handle escaped characters in mask", async () => {
     const { input } = createInput(
-      <Input mask="+4\9 99 9\99 99" maskPlaceholder={null} />
+      <Input name="masked-input" mask="+4\9 99 9\99 99" maskPlaceholder={null} />
     );
     await simulateFocus(input);
 
@@ -277,7 +277,7 @@ describe("react-input-mask", () => {
 
   it("should handle alwaysShowMask", async () => {
     const { input, setProps } = createInput(
-      <Input mask="+7 (999) 999 99 99" alwaysShowMask />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" alwaysShowMask />
     );
     expect(input.value).to.equal("+7 (___) ___ __ __");
 
@@ -296,7 +296,7 @@ describe("react-input-mask", () => {
 
   it("should adjust cursor position on focus", async () => {
     const { input, setProps } = createInput(
-      <Input mask="+7 (999) 999 99 99" value="+7" />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" value="+7" />
     );
     await simulateFocus(input);
 
@@ -334,7 +334,7 @@ describe("react-input-mask", () => {
 
   it("should adjust cursor position on focus on input with autoFocus", async () => {
     const { input, setProps } = createInput(
-      <Input mask="+7 (999) 999 99 99" value="+7" autoFocus />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" value="+7" autoFocus />
     );
     expect(getInputSelection(input).start).to.equal(4);
     expect(getInputSelection(input).end).to.equal(4);
@@ -358,7 +358,7 @@ describe("react-input-mask", () => {
 
   it("should handle changes on input with autoFocus", async () => {
     const { input } = createInput(
-      <Input mask="+7 (999) 999 99 99" autoFocus />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" autoFocus />
     );
     await simulateInput(input, "222 222 22 22");
 
@@ -370,7 +370,7 @@ describe("react-input-mask", () => {
   });
 
   it("should format value in onChange (with maskPlaceholder)", async () => {
-    const { input } = createInput(<Input mask="**** **** **** ****" />);
+    const { input } = createInput(<Input name="masked-input" mask="**** **** **** ****" />);
     await simulateFocus(input);
 
     await setCursorPosition(input, 0);
@@ -419,7 +419,7 @@ describe("react-input-mask", () => {
 
   it("should format value in onChange (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input mask="**** **** **** ****" maskPlaceholder={null} />
+      <Input name="masked-input" mask="**** **** **** ****" maskPlaceholder={null} />
     );
     await simulateFocus(input);
     expect(input.value).to.equal("");
@@ -455,7 +455,7 @@ describe("react-input-mask", () => {
   });
 
   it("should handle entered characters (with maskPlaceholder)", async () => {
-    const { input } = createInput(<Input mask="+7 (*a9) 999 99 99" />);
+    const { input } = createInput(<Input name="masked-input" mask="+7 (*a9) 999 99 99" />);
     await simulateFocus(input);
 
     await setCursorPosition(input, 0);
@@ -483,7 +483,7 @@ describe("react-input-mask", () => {
 
   it("should handle entered characters (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="+7 (999) 999 99 99"
         defaultValue="+7 (111) 123 45 6"
         maskPlaceholder={null}
@@ -515,7 +515,7 @@ describe("react-input-mask", () => {
   });
 
   it("should adjust cursor position on input (with maskPlaceholder)", async () => {
-    const { input } = createInput(<Input mask="(999)" defaultValue="11" />);
+    const { input } = createInput(<Input name="masked-input" mask="(999)" defaultValue="11" />);
     await simulateFocus(input);
 
     await setCursorPosition(input, 3);
@@ -537,7 +537,7 @@ describe("react-input-mask", () => {
 
   it("should handle single character removal with Backspace (with maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input mask="+7 (999) 999 99 99" defaultValue="74953156454" />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" defaultValue="74953156454" />
     );
     await simulateFocus(input);
 
@@ -551,7 +551,7 @@ describe("react-input-mask", () => {
 
   it("should handle single character removal with Backspace (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="+7 (999) 999 99 99"
         defaultValue="74953156454"
         maskPlaceholder={null}
@@ -576,7 +576,7 @@ describe("react-input-mask", () => {
 
   it("should adjust cursor position on single character removal with Backspace (with maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input mask="+7 (999) 999 99 99" defaultValue="74953156454" />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" defaultValue="74953156454" />
     );
     await simulateFocus(input);
 
@@ -597,7 +597,7 @@ describe("react-input-mask", () => {
 
   it("should adjust cursor position on single character removal with Backspace (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="+7 (999) 999 99 99"
         defaultValue="749531564"
         maskPlaceholder={null}
@@ -613,7 +613,7 @@ describe("react-input-mask", () => {
 
   it("should handle multiple characters removal with Backspace (with maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input mask="+7 (999) 999 99 99" defaultValue="74953156454" />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" defaultValue="74953156454" />
     );
     await simulateFocus(input);
 
@@ -624,7 +624,7 @@ describe("react-input-mask", () => {
 
   it("should handle multiple characters removal with Backspace (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="+7 (999) 999 99 99"
         defaultValue="74953156454"
         maskPlaceholder={null}
@@ -639,7 +639,7 @@ describe("react-input-mask", () => {
 
   it("should adjust cursor position on multiple characters removal with Backspace (with maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input mask="+7 (999) 999 99 99" defaultValue="74953156454" />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" defaultValue="74953156454" />
     );
     await simulateFocus(input);
 
@@ -651,7 +651,7 @@ describe("react-input-mask", () => {
 
   it("should handle single character removal with Backspace on mask with escaped characters (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="+4\9 99 9\99 99"
         defaultValue="+49 12 394"
         maskPlaceholder={null}
@@ -677,7 +677,7 @@ describe("react-input-mask", () => {
 
   it("should adjust cursor position on single character removal with Backspace on mask with escaped characters (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="+4\9 99 9\99 99"
         defaultValue="+49 12 394"
         maskPlaceholder={null}
@@ -706,7 +706,7 @@ describe("react-input-mask", () => {
 
   it("should handle multiple characters removal with Backspace on mask with escaped characters (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="+4\9 99 9\99 99"
         defaultValue="+49 12 394"
         maskPlaceholder={null}
@@ -728,7 +728,7 @@ describe("react-input-mask", () => {
 
   it("should adjust cursor position on multiple characters removal with Backspace on mask with escaped characters (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="+4\9 99 9\99 99"
         defaultValue="+49 12 394"
         maskPlaceholder={null}
@@ -751,7 +751,7 @@ describe("react-input-mask", () => {
 
   it("should handle single character removal with Delete (with maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input mask="+7 (999) 999 99 99" defaultValue="74953156454" />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" defaultValue="74953156454" />
     );
     await simulateFocus(input);
 
@@ -770,7 +770,7 @@ describe("react-input-mask", () => {
 
   it("should adjust cursor position on single character removal with Delete (with maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input mask="+7 (999) 999 99 99" defaultValue="74953156454" />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" defaultValue="74953156454" />
     );
     await simulateFocus(input);
 
@@ -792,7 +792,7 @@ describe("react-input-mask", () => {
 
   it("should handle multiple characters removal with Delete (with maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input mask="+7 (999) 999 99 99" defaultValue="74953156454" />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" defaultValue="74953156454" />
     );
     await simulateFocus(input);
 
@@ -803,7 +803,7 @@ describe("react-input-mask", () => {
 
   it("should handle single character removal with Delete on mask with escaped characters (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="+4\9 99 9\99 99"
         defaultValue="+49 12 394"
         maskPlaceholder={null}
@@ -829,7 +829,7 @@ describe("react-input-mask", () => {
 
   it("should adjust cursor position on single character removal with Delete on mask with escaped characters (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="+4\9 99 9\99 99"
         defaultValue="+49 12 394"
         maskPlaceholder={null}
@@ -858,7 +858,7 @@ describe("react-input-mask", () => {
 
   it("should handle multiple characters removal with Delete on mask with escaped characters (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="+4\9 99 9\99 99"
         defaultValue="+49 12 394"
         maskPlaceholder={null}
@@ -880,7 +880,7 @@ describe("react-input-mask", () => {
 
   it("should adjust cursor position on multiple characters removal with Delete on mask with escaped characters (without maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="+4\9 99 9\99 99"
         defaultValue="+49 12 394"
         maskPlaceholder={null}
@@ -903,7 +903,7 @@ describe("react-input-mask", () => {
 
   it("should handle mask change", async () => {
     const { input, setProps } = createInput(
-      <Input mask="9999-9999-9999-9999" defaultValue="34781226917" />
+      <Input name="masked-input" mask="9999-9999-9999-9999" defaultValue="34781226917" />
     );
     setProps({ mask: "9999-999999-99999" });
     expect(input.value).to.equal("3478-122691-7____");
@@ -922,7 +922,7 @@ describe("react-input-mask", () => {
 
   it("should handle mask change with on controlled input", async () => {
     const { input, setProps } = createInput(
-      <Input mask="9999-9999-9999-9999" value="38781226917" />
+      <Input name="masked-input" mask="9999-9999-9999-9999" value="38781226917" />
     );
     setProps({
       onChange: () => {
@@ -946,7 +946,7 @@ describe("react-input-mask", () => {
 
   it("should handle string paste (with maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input mask="9999-9999-9999-9999" defaultValue="____-____-____-6543" />
+      <Input name="masked-input" mask="9999-9999-9999-9999" defaultValue="____-____-____-6543" />
     );
     await simulateFocus(input);
 
@@ -965,7 +965,7 @@ describe("react-input-mask", () => {
 
   it("should adjust cursor position on string paste (with maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input mask="9999-9999-9999-9999" defaultValue="____-____-____-6543" />
+      <Input name="masked-input" mask="9999-9999-9999-9999" defaultValue="____-____-____-6543" />
     );
     await simulateFocus(input);
 
@@ -982,7 +982,7 @@ describe("react-input-mask", () => {
 
   it("should handle string paste (without maskPlaceholder)", async () => {
     const { input, setProps } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="9999-9999-9999-9999"
         defaultValue="9999-9999-9999-9999"
         maskPlaceholder={null}
@@ -1019,7 +1019,7 @@ describe("react-input-mask", () => {
 
   it("should handle string paste at position of permanent character (with maskPlaceholder)", async () => {
     const { input } = createInput(
-      <Input mask="9999-9999-9999" maskPlaceholder=" " />
+      <Input name="masked-input" mask="9999-9999-9999" maskPlaceholder=" " />
     );
     await simulateFocus(input);
 
@@ -1029,7 +1029,7 @@ describe("react-input-mask", () => {
 
   it("should keep placeholder on rerender on empty input with alwaysShowMask", async () => {
     const { input, setProps } = createInput(
-      <Input mask="99-99" value="" alwaysShowMask />
+      <Input name="masked-input" mask="99-99" value="" alwaysShowMask />
     );
     setProps({ value: "" });
 
@@ -1038,14 +1038,14 @@ describe("react-input-mask", () => {
 
   it("should show empty value when input switches from uncontrolled to controlled", async () => {
     const { input, setProps } = createInput(
-      <Input mask="+7 (*a9) 999 99 99" />
+      <Input name="masked-input" mask="+7 (*a9) 999 99 99" />
     );
     setProps({ value: "+7 (___) ___ __ __" });
     expect(input.value).to.equal("+7 (___) ___ __ __");
   });
 
   it("shouldn't affect value if mask is empty", async () => {
-    const { input, setProps } = createInput(<Input value="12345" />);
+    const { input, setProps } = createInput(<Input name="masked-input" value="12345" />);
     expect(input.value).to.equal("12345");
 
     setProps({
@@ -1056,21 +1056,21 @@ describe("react-input-mask", () => {
 
   it("should show next permanent character when maskPlaceholder is null", async () => {
     const { input } = createInput(
-      <Input mask="99/99/9999" value="01" maskPlaceholder={null} />
+      <Input name="masked-input" mask="99/99/9999" value="01" maskPlaceholder={null} />
     );
     expect(input.value).to.equal("01/");
   });
 
   it("should show all next consecutive permanent characters when maskPlaceholder is null", async () => {
     const { input } = createInput(
-      <Input mask="99---99" value="01" maskPlaceholder={null} />
+      <Input name="masked-input" mask="99---99" value="01" maskPlaceholder={null} />
     );
     expect(input.value).to.equal("01---");
   });
 
   it("should show trailing permanent character when maskPlaceholder is null", async () => {
     const { input } = createInput(
-      <Input mask="99%" value="10" maskPlaceholder={null} />
+      <Input name="masked-input" mask="99%" value="10" maskPlaceholder={null} />
     );
     expect(input.value).to.equal("10%");
   });
@@ -1078,7 +1078,7 @@ describe("react-input-mask", () => {
   it("should pass input DOM node to ref", async () => {
     let inputRef;
     const { input } = createInput(
-      <Input
+      <Input name="masked-input"
         ref={ref => {
           inputRef = ref;
         }}
@@ -1108,7 +1108,7 @@ describe("react-input-mask", () => {
     }
 
     const { input, setProps } = createInput(
-      <Input
+      <Input name="masked-input"
         mask="99/99/9999"
         value=""
         beforeMaskedStateChange={beforeMaskedStateChange}
@@ -1141,7 +1141,7 @@ describe("react-input-mask", () => {
   });
 
   it("shouldn't modify value on entering non-allowed character", async () => {
-    const { input } = createInput(<Input mask="9999" defaultValue="1234" />);
+    const { input } = createInput(<Input name="masked-input" mask="9999" defaultValue="1234" />);
     await simulateFocus(input);
 
     await setCursorPosition(input, 0);
@@ -1164,7 +1164,7 @@ describe("react-input-mask", () => {
 
   it("should handle autofill", async () => {
     const { input } = createInput(
-      <Input mask="9999-9999" defaultValue="123" maskPlaceholder={null} />
+      <Input name="masked-input" mask="9999-9999" defaultValue="123" maskPlaceholder={null} />
     );
     await simulateFocus(input);
 
@@ -1176,7 +1176,7 @@ describe("react-input-mask", () => {
   });
 
   it("should handle transition between masked and non-masked state", async () => {
-    const { input, setProps } = createInput(<Input />);
+    const { input, setProps } = createInput(<Input name="masked-input" />);
     setProps({
       value: "",
       onChange: event => {
@@ -1215,7 +1215,7 @@ describe("react-input-mask", () => {
 
   it("should handle regular component as children", async () => {
     let { input } = createInput(
-      <Input mask="+7 (999) 999 99 99">
+      <Input name="masked-input" mask="+7 (999) 999 99 99">
         <ClassInputComponent />
       </Input>
     );
@@ -1234,7 +1234,7 @@ describe("react-input-mask", () => {
 
   it("should handle functional component as children", async () => {
     let { input } = createInput(
-      <Input mask="+7 (999) 999 99 99">
+      <Input name="masked-input" mask="+7 (999) 999 99 99">
         <FunctionalInputComponent />
       </Input>
     );
@@ -1252,7 +1252,7 @@ describe("react-input-mask", () => {
   });
 
   it("should handle children change", async () => {
-    let { input, setProps } = createInput(<Input mask="+7 (999) 999 99 99" />);
+    let { input, setProps } = createInput(<Input name="masked-input" mask="+7 (999) 999 99 99" />);
     function handleRef(ref) {
       input = ref;
     }
@@ -1312,7 +1312,7 @@ describe("react-input-mask", () => {
 
   it("should handle change event without focus", async () => {
     const { input } = createInput(
-      <Input mask="+7 (999) 999 99 99" maskPlaceholder={null} />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" maskPlaceholder={null} />
     );
     input.value = "+71234567890";
     TestUtils.Simulate.change(input);
@@ -1321,7 +1321,7 @@ describe("react-input-mask", () => {
 
   it("shouldn't move cursor on delayed value change", async () => {
     const { input, setProps } = createInput(
-      <Input mask="+7 (999) 999 99 99" maskPlaceholder={null} />
+      <Input name="masked-input" mask="+7 (999) 999 99 99" maskPlaceholder={null} />
     );
     setProps({
       value: "+7 (9",

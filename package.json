@@ -1,10 +1,11 @@
 {
   "name": "smpb-react-input-mask",
   "description": "Masked input component for React",
-  "version": "1.0.0",
-  "homepage": "https://github.com/sanniassin/react-input-mask",
+  "version": "1.0.6",
+  "homepage": "https://github.com/maritutynina/react-input-mask",
   "license": "MIT",
-  "author": "Nikita Lobachev <sanniassin@gmail.com>",
+  "author": "",
+  "typings": "./index.d.ts",
   "keywords": [
     "react",
     "input",
@@ -68,31 +69,23 @@
   "main": "index.js",
   "files": [
     "lib",
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "lint-staged": {
     "*.js": "eslint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "scripts": {
     "clean": "rimraf lib dist",
     "build": "cross-env BABEL_ENV=rollup rollup -c",
     "start": "cross-env BABEL_ENV=test NODE_ENV=development webpack-dev-server",
     "prepare": "npm run lint && npm test && npm run clean && npm run build",
-    "lint": "eslint ./src ./tests ./*.js",
-    "lint-fix": "eslint --fix ./src ./tests ./*.js",
+    "lint": "eslint ./src ./*.js",
+    "lint-fix": "eslint --fix ./src ./*.js",
     "test": "npm run build && npm run test:input && npm run test:server-render && npm run test:build",
     "test:input": "cross-env NODE_ENV=test BABEL_ENV=test karma start",
     "test:server-render": "cross-env BABEL_ENV=test mocha --require @babel/register ./tests/server-render",
     "test:build": "cross-env BABEL_ENV=test mocha --require @babel/register ./tests/build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sanniassin/react-input-mask.git"
   },
   "dependencies": {
     "invariant": "^2.2.4",

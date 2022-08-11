@@ -267,7 +267,8 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
     onChange: isMasked && isEditable ? onChange : props.onChange,
     onMouseDown: isMasked && isEditable ? onMouseDown : props.onMouseDown,
     ref: ref => {
-        inputRef.current = document.getElementsByName(this.props.name)[0];
+      // eslint-disable-next-line
+      inputRef.current = document.getElementsByName(props.name)[0];
 
       if (isFunction(forwardedRef)) {
         forwardedRef(ref);
